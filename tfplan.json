@@ -1,0 +1,25 @@
+{
+  "format_version": "1.0",
+  "resource_changes": [
+    {
+      "address": "aws_s3_bucket.safe_bucket",
+      "type": "aws_s3_bucket",
+      "change": {
+        "after": {
+          "bucket": "company-private-data",
+          "acl": "private"
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket.vulnerable_bucket",
+      "type": "aws_s3_bucket",
+      "change": {
+        "after": {
+          "bucket": "company-leaked-data",
+          "acl": "public-read"
+        }
+      }
+    }
+  ]
+}
