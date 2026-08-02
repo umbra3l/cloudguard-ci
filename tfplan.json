@@ -20,6 +20,32 @@
           "acl": "public-read"
         }
       }
+    },
+    {
+      "address": "aws_security_group.vulnerable_sg",
+      "type": "aws_security_group",
+      "change": {
+        "after": {
+          "ingress": [{
+            "from_port": 0,
+            "to_port": 65535,
+            "cidr_blocks": ["0.0.0.0/0"]
+          }]
+        }
+      }
+    },
+    {
+      "address": "aws_security_group.safe_sg",
+      "type": "aws_security_group",
+      "change": {
+        "after": {
+          "ingress": [{
+            "from_port": 0,
+            "to_port": 65535,
+            "cidr_blocks": ["10.0.0.0/8"]
+          }]
+        }
+      }
     }
   ]
 }
