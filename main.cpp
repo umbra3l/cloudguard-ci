@@ -63,7 +63,7 @@ public:
             outFinding.resourceAddress = resource["address"];
             outFinding.ruleName = getRuleName();
             outFinding.severity = "HIGH";
-            outFinding.message = "[FAIL] Security Risk Found!\nResource: " + outFinding.resourceAddress + "\nIssue: Security Group is open.";
+            outFinding.message = "[FAIL] Security Risk Found!\nResource: " + outFinding.resourceAddress + "\nIssue: Security Group is open.\n\n";
             return true;
           }
         }
