@@ -29,6 +29,14 @@ CloudGuard-CI parses Terraform plan JSON files (`tfplan.json`) **before** cloud 
 
 ---
 
+## CI/CD Integration
+
+CloudGuard-CI runs automatically on every push via GitHub Actions. If any security violation is found, the pipeline fails — blocking unsafe infrastructure from being deployed.
+
+![GitHub Actions](https://github.com/umbra3l/cloudguard-ci/actions/workflows/scan.yml/badge.svg)
+
+---
+
 ## Build
 
 ```bash
@@ -55,7 +63,19 @@ Resource: aws_s3_bucket.vulnerable_bucket
 Issue: Bucket ACL is set to 'public-read' (it is publicly accessible to the internet!)
 
 [FAIL] Security Risk Found!
-Resource: aws_security_group.vulnerable_sg
+Resource: aws_s3_bucket.public_rw_bucket
+Issue: Bucket ACL is set to 'public-read-write' (it is publicly accessible to the internet!)
+
+[FAIL] Security Risk Found!
+Resource: aws_security_group.open_ssh_sg
+Issue: Security Group is open.
+
+[FAIL] Security Risk Found!
+Resource: aws_security_group.open_http_sg
+Issue: Security Group is open.
+
+[FAIL] Security Risk Found!
+Resource: aws_security_group.wildcard_sg
 Issue: Security Group is open.
 ```
 
@@ -70,8 +90,11 @@ cloudguard-ci/
 ├── main.cpp        # Scanner engine and all rule implementations
 ├── json.hpp        # nlohmann/json single-header library
 ├── tfplan.json     # Sample Terraform plan with safe and vulnerable resources
+├── .github/
+│   └── workflows/
+│       └── scan.yml  # GitHub Actions CI workflow
 └── outputs/
-    └── cloudguard  # Compiled binary
+    └── cloudguard  # Compiled binary (not tracked in git)
 ```
 
 ---
@@ -90,6 +113,8 @@ Adding a new rule requires only creating a new class that inherits from `Rule` a
 
 ## Roadmap
 
+- [x] CLI argument support for custom plan file paths
+- [x] GitHub Actions CI/CD integration
 - [ ] Refactor into modular `include/` and `src/` directory structure
 - [ ] Add Makefile build system
 - [ ] SARIF output format for GitHub Security tab integration
