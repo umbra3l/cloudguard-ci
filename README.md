@@ -35,6 +35,9 @@ CloudGuard-CI runs automatically on every push via GitHub Actions. If any securi
 
 ![GitHub Actions](https://github.com/umbra3l/cloudguard-ci/actions/workflows/scan.yml/badge.svg)
 
+> **Why does the badge show as failing?**
+> This is intentional. The included `tfplan.json` is a **demonstration file** containing deliberately vulnerable resources (public S3 buckets and open security groups). The scanner is working correctly — it detects the violations and exits with code `1`, which GitHub Actions correctly reports as a failed pipeline. In a real project, `tfplan.json` would be generated from your actual Terraform code and a clean plan would produce a passing build.
+
 ---
 
 ## Build
